@@ -1,15 +1,19 @@
-var http  = require('http');
+var http  = require('http'), 
+	fs = require('fs'),
+	static=require('node-static'),
+	colors=require('colors');
+
 var serverConf = {
 	port: 90
 }
+
+
 console.log("Inciando el servidor");
+var file = new(static.Server)();
+var server = http.createServer(function(req, res){
 
-var server = http.createServer(function(request, response){
-	console.log("Petición recibida!! " + new Date());
-	response.write("hello node");
-	response.end(""+new Date());
-
-});
+	console.log("--Petición".red);
+	console.log("--Petición".green);
+	file.serve(req,res);
+}).listen(serverConf.port);
 console.log("Servidor iniciado. Presoince ctrl + c para salir");
-
-server.listen(serverConf.port);
